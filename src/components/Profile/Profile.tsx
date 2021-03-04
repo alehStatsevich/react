@@ -1,17 +1,14 @@
 import React from "react";
-import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import Profileinfo from "./Profileinfo/Profileinfo"
+import {StoreType} from "../../redux/state";
 
-import Post from "./MyPosts/Post/Post";
-import {PostType} from "../../redux/state";
 
 type ProfilePropsType = {
-    posts: PostType[]
-    likesCount: PostType[]
-    message: PostType[]
-    addPost: () => void
-    changeText: (newPostText: string) => void
+    store:  StoreType
+
+
+    dispatch: (action: any)=> void
 }
 
 const Profile = (props: ProfilePropsType) => {
@@ -19,22 +16,23 @@ const Profile = (props: ProfilePropsType) => {
         <Profileinfo/>
 
 
-        <MyPosts posts={props.posts}
-                 likesCount={props.likesCount}
-                 message={props.message}
-                 addPost={props.addPost}
-                 changeText={props.changeText}/>
+        <MyPosts store={props.store}
+                 dispatch={props.dispatch}/>
 
     </div>
 
 }
 export default Profile;
-
-
-
-
-
-
+//   типизация
+// posts: PostType[]
+// likesCount: PostType[]
+// message: PostType[]
+// addPost: () => void
+//     changeText: (newPostText: string) => void
+//my post
+// posts={props.posts}
+// likesCount={props.likesCount}
+// message={props.message}
 
 
 

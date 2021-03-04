@@ -1,9 +1,11 @@
+
+
+import App from "./App";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import state, {addPost, changeText} from "./redux/state";
+import store, {StoreType} from "./redux/state";
+import reportWebVitals from "./reportWebVitals";
 
 
 // export type MessageType = {
@@ -45,18 +47,18 @@ import state, {addPost, changeText} from "./redux/state";
 
 
 
+ let rerenderEntireTree = () => {
 
+    ReactDOM.render(
+        <React.StrictMode>
+            <App  dispatch={store.dispatch.bind(store)} store={store}/>
+            {/*<App posts={posts} dialogs={dialogs} messages={messages}/>*/}
+        </React.StrictMode>,
+        document.getElementById('root'));
+}
 
-
-
-
-ReactDOM.render(
-  <React.StrictMode>
-      <App state={state} addPost={addPost} changeText={changeText}/>
-    {/*<App posts={posts} dialogs={dialogs} messages={messages}/>*/}
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ rerenderEntireTree();
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
