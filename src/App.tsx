@@ -3,41 +3,38 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import  store,{ActionsType, StateType, StoreType} from "./redux/state";
+import {Route} from "react-router-dom";
+import  {ActionsType, StateType, StoreType} from "./redux/state";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import store from "./redux/redux-store";
 
 
-type StatePropsType = {
-    state: StateType
-    addPost: () => void;
-    changeText: (newPostText: string) => void;
-}
-type PropsType = {
-    store:  StoreType
-    dispatch:  (action: ActionsType )=> void
-}
+// type StatePropsType = {
+//     state: StateType
+//     addPost: () => void;
+//     changeText: (newPostText: string) => void;
+// }
+// type PropsType = {
+//     store:  StoreType
+//     dispatch:  (action: ActionsType )=> void
+// }
 
-function App (props: PropsType ) {
-
-    console.log(props)
+function App () {
     return (
-        <BrowserRouter>
+
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs store={props.store}/>}/>
+                           render={() => <DialogsContainer />}/>
                     <Route path='/profile'
-                           render={() => <Profile store={props.store}
-                               dispatch={props.store.dispatch.bind(props.store)}
-                           />}/>
+                           render={() => <Profile/>}/>
 
                 </div>
 
             </div>
-        </BrowserRouter>
+
     );
 }
 
@@ -45,3 +42,7 @@ export default App;
 // posts={props.store.getState().profilePage.posts}
 // likesCount={props.store.getState().profilePage.posts}
 // message={props.store.getState().profilePage.posts}
+// <DialogsContainer store={props.store}/
+// <Profile store={props.store}
+//          dispatch={props.store.dispatch.bind(props.store)}
+

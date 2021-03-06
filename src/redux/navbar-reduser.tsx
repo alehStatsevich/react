@@ -1,5 +1,7 @@
-import state from "./state";
 
-const navbarReducer = (state: any, action: any) => {
+let initialState = {};
+
+const navbarReducer = (state= initialState, action: any) => {
    return state;
 }
+export default  navbarReducer;

@@ -1,23 +1,20 @@
 import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
 import Profileinfo from "./Profileinfo/Profileinfo"
-import {StoreType} from "../../redux/state";
+
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ActionsType, StoreType} from "../../redux/state";
+import store from "../../redux/redux-store";
 
 
-type ProfilePropsType = {
-    store:  StoreType
+ // type ProfilePropsType = {
+ //    store:  StoreType
+ //     dispatch: (action: ActionsType)=> void
+ // }
 
-
-    dispatch: (action: any)=> void
-}
-
-const Profile = (props: ProfilePropsType) => {
+const Profile = () => {
     return <div>
         <Profileinfo/>
-
-
-        <MyPosts store={props.store}
-                 dispatch={props.dispatch}/>
+        <MyPostsContainer/>
 
     </div>
 
@@ -33,6 +30,7 @@ export default Profile;
 // posts={props.posts}
 // likesCount={props.likesCount}
 // message={props.message}
-
+// <MyPostsContainer store={props.store}
+//                   dispatch={props.dispatch}/>
 
 

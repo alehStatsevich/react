@@ -26,16 +26,27 @@ export const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
     newMessageBody: ""
  }
 
-export  const dialogsReducer = (state: dialogsPageType, action: any): dialogsPageType => {
+export  const dialogsReducer = (state= initialState, action: any): dialogsPageType => {
+
+
+
    switch (action.type) {
       case UPDATE_NEW_MESSAGE_BODY:
-         state.newMessageBody = action.body;
-         return state;
+         let stateCopy = {...state}
+         //поверхносная копия
+         stateCopy.newMessageBody = action.body;
+         //ретурним копи стэйт.если вернем стейт это будет тот что приходит в функцию и не будет перерисовки
+         return stateCopy;
       case SEND_MESSAGE: {
          let body = state.newMessageBody;
-         state.newMessageBody = '';
-         state.messages.push({id: 6, message: body});
-         return state;
+         let stateCopy2 = {
+            ...state,
+            newMessageBody: '',
+            messages: [...state.messages,{id: 6, message: body}]}
+        //копируем месаджи и  пушим messages.push({id: 6, message: body}
+
+
+         return stateCopy2;
      ///???????
       }
       default:
@@ -62,5 +73,5 @@ export const updateNewMessageBodyCreator = (body: string) => {
 //
 //    return state;
 // }переделали в switch
-
+// stateCopy2.messages.push({id: 6, message: body});
 // export default dialogsReducer;
