@@ -1,5 +1,6 @@
 import {addPostActionCreator, profileReducer, updateNewTextActionCreator} from "./profile-reduser";
 import {dialogsReducer, sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reduser";
+import {followAC, setUsersAC, unfollowAC} from "./users-reduser";
 
 //перенесли в profile-reduser,dialogs-reduser
 // const ADD_POST = "ADD-POST";
@@ -10,10 +11,23 @@ import {dialogsReducer, sendMessageCreator, updateNewMessageBodyCreator} from ".
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    usersPage:usersPageType
+}
+export type StoreType = {
+    _state: StateType
+    getState: () => StateType
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsType) => void
 }
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
+}
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
 }
 export type   DialogsPageType = {
     messages: MessageType[]
@@ -29,24 +43,37 @@ export type DialogType = {
     id: number
     name: string
 }
-export type PostType = {
+export type  usersPageType = {
+    users: UsersType[]
+}
+export type UsersType = {
     id: number
-    message: string
-    likesCount: number
+    photoUrl: string
+    followed: boolean
+    fullName:string
+    status:string
+    location: object
 }
-export type StoreType = {
-    _state: StateType
-    getState: () => StateType
-    _callSubscriber: () => void
-    subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsType )=> void
-}
+// export type LocationType = {
+//     city: string
+//     country: string
+// }
 
-
-export type ActionsType = ReturnType<typeof sendMessageCreator>
-    |ReturnType<typeof updateNewMessageBodyCreator>
-    | ReturnType<typeof addPostActionCreator >
-    | ReturnType<typeof updateNewTextActionCreator >
+export type ActionsType =
+    addPostType
+    |sendMessageType
+    |updateNewMessageBodyType
+    |updateNewText
+    |followType
+    |unfollowType
+    |setUsersType
+export type  addPostType = ReturnType<typeof addPostActionCreator>
+export type sendMessageType = ReturnType<typeof sendMessageCreator>
+export type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyCreator>
+export type updateNewText = ReturnType<typeof updateNewTextActionCreator>
+export type followType = ReturnType<typeof followAC>
+export type unfollowType = ReturnType<typeof unfollowAC>
+export type setUsersType = ReturnType<typeof setUsersAC>
 
 
 
@@ -79,6 +106,34 @@ let store: StoreType = {
             ],
             newMessageBody: ""
         },
+        usersPage: {
+            users: [
+                {
+                    id: 1,
+                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
+                    followed: false,
+                    fullName: "Dima",
+                    status: "Hello",
+                    location: {city: "Minsk", country: "Belarus"}
+                },
+                {
+                    id: 2,
+                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBR5SL43JjDN9N0r_q0FLWhi1WSTq1nDi_Q&usqp=CAU',
+                    followed: false,
+                    fullName: "Eska",
+                    status: "Hello",
+                    location: {city: "Brest", country: "Belarus"}
+                },
+                {
+                    id: 3,
+                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3DxknKrLBlFGLEtUQmCbc0adqoOYc0VLYQ&usqp=CAU',
+                    followed: true,
+                    fullName: "Leonid",
+                    status: "Hello",
+                    location: {city: "Lida", country: "Belarus"}
+                }
+            ],
+        },
     },
     getState() {
         return this._state;
@@ -96,30 +151,30 @@ let store: StoreType = {
         this._callSubscriber();
     }
 }
-
+export default store;
 //перенесли в profile-reduser,dialogs-reduser переделываем в switch
-        // if (action.type === 'ADD-POST') {
-        //     let newPost: PostType = {
-        //         id: 5,
-        //         message: action.newPost,
-        //         likesCount: 0
-        //     };
-        //     this._state.profilePage.posts.push(newPost);
-        //     this._state.profilePage.newPostText="";
-        //     this._callSubscriber();//функция отрисовывает посты
-        // }
-        // else if (action.type === 'UPDATE-NEW-POST-TEXT'){
-        //     this._state.profilePage.newPostText = action.newPostText
-        //     this._callSubscriber();
-        // }else if(action.type === 'UPDATE-NEW-MESSAGE-BODY'){
-        //     this._state.dialogsPage.newMessageBody = action.body;
-        //     this._callSubscriber(this._state);
-        // }else if(action.type === 'SEND-MESSAGE'){
-        //     let body = this._state.dialogsPage.newMessageBody;
-        //     this._state.dialogsPage.newMessageBody = '';
-        //     this._state.dialogsPage.messages.push({id: 6, message: body})
-        //     this._callSubscriber(this._state);
-        // }
+// if (action.type === 'ADD-POST') {
+//     let newPost: PostType = {
+//         id: 5,
+//         message: action.newPost,
+//         likesCount: 0
+//     };
+//     this._state.profilePage.posts.push(newPost);
+//     this._state.profilePage.newPostText="";
+//     this._callSubscriber();//функция отрисовывает посты
+// }
+// else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+//     this._state.profilePage.newPostText = action.newPostText
+//     this._callSubscriber();
+// }else if(action.type === 'UPDATE-NEW-MESSAGE-BODY'){
+//     this._state.dialogsPage.newMessageBody = action.body;
+//     this._callSubscriber(this._state);
+// }else if(action.type === 'SEND-MESSAGE'){
+//     let body = this._state.dialogsPage.newMessageBody;
+//     this._state.dialogsPage.newMessageBody = '';
+//     this._state.dialogsPage.messages.push({id: 6, message: body})
+//     this._callSubscriber(this._state);
+// }
 
 //перенесли в reduser
 // export const addPostActionCreator = ( newPost: string) => {
@@ -135,8 +190,8 @@ let store: StoreType = {
 //     return {type: 'UPDATE-NEW-MESSAGE-BODY', body: body} as const
 // }
 
-
-
-
-export default  store;
 // window.store= store;
+// ReturnType<typeof sendMessageCreator>
+// | ReturnType<typeof updateNewMessageBodyCreator>
+// | ReturnType<typeof addPostActionCreator>
+// | ReturnType<typeof updateNewTextActionCreator>

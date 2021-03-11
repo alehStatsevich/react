@@ -4,9 +4,8 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {Route} from "react-router-dom";
-import  {ActionsType, StateType, StoreType} from "./redux/state";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import store from "./redux/redux-store";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 // type StatePropsType = {
@@ -19,21 +18,21 @@ import store from "./redux/redux-store";
 //     dispatch:  (action: ActionsType )=> void
 // }
 
-function App () {
+function App() {
     return (
 
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs'
-                           render={() => <DialogsContainer />}/>
-                    <Route path='/profile'
-                           render={() => <Profile/>}/>
-
-                </div>
-
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/dialogs'
+                       render={() => <DialogsContainer/>}/>
+                <Route path='/profile'
+                       render={() => <Profile/>}/>
+                <Route path='/users'
+                       render={() => <UsersContainer/>}/>
             </div>
+        </div>
 
     );
 }
