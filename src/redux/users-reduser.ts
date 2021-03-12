@@ -1,4 +1,4 @@
-import {UsersType} from "./state";
+
 
 
 export const FOLLOW = 'FOLLOW';
@@ -7,7 +7,8 @@ export const SET_USERS= 'SET_USERS';
 
  export type UserType = {
     id: number
-    photoUrl: string
+     photos: any
+     // photoUrl: any
     followed: boolean
     fullName:string
     status:string
@@ -21,12 +22,7 @@ export type initialStateType = {
 
 let initialState: initialStateType  = {
    users: [
-      {id: 1,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
-          followed:false, fullName: "Dima", status: "Hello",location:{city:"Minsk", country: "Belarus"}},
-      {id: 2,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBR5SL43JjDN9N0r_q0FLWhi1WSTq1nDi_Q&usqp=CAU',
-          followed:false, fullName: "Eska", status: "Hello",location:{city:"Brest", country: "Belarus"}},
-      {id: 3,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3DxknKrLBlFGLEtUQmCbc0adqoOYc0VLYQ&usqp=CAU',
-          followed:true,fullName: "Leonid", status: "Hello",location:{city:"Lida", country: "Belarus"}}
+
    ]
 }
 
@@ -59,9 +55,9 @@ let initialState: initialStateType  = {
                return u;
             })
          }
-      case SET_USERS:{
-         //делаем копию стейта,берем копию старых юзеров и добавляем к ним юзеров которые пришли из action.users( const setUsersAC = (users))
-         return {...state,users: [...state.users,...action.users]}
+      case SET_USERS: {
+          //делаем копию стейта,берем копию старых юзеров и добавляем к ним юзеров которые пришли из action.users( const setUsersAC = (users))
+          return {...state, users: [...state.users, ...action.users]}
       }
        default:
           return state;
@@ -78,3 +74,9 @@ export const setUsersAC = (users: UserType[]) => {
 }
 
  export default usersReducer;
+// {id: 1,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
+//     followed:false, fullName: "Dima", status: "Hello",location:{city:"Minsk", country: "Belarus"}},
+// {id: 2,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBR5SL43JjDN9N0r_q0FLWhi1WSTq1nDi_Q&usqp=CAU',
+//     followed:false, fullName: "Eska", status: "Hello",location:{city:"Brest", country: "Belarus"}},
+// {id: 3,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3DxknKrLBlFGLEtUQmCbc0adqoOYc0VLYQ&usqp=CAU',
+//     followed:true,fullName: "Leonid", status: "Hello",location:{city:"Lida", country: "Belarus"}}
