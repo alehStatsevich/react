@@ -5,16 +5,13 @@ import axios from "axios";
 import userPhoto from "../../assets/images/user.png"
 
 class Users extends React.Component <UsersPropsType> {
-    getUsers = () => {
-        if (this.props.users.length === 0) {
+    componentDidMount() {
             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
                 this.props.setUsers(response.data.items)
             });
-        }
     }
     render() {
         return <div>
-            <button onClick={this.getUsers}>Get Users</button>
             {
                 this.props.users.map(u => <div key={u.id}>
     <span>
@@ -46,7 +43,9 @@ class Users extends React.Component <UsersPropsType> {
     }
 }
 export default Users;
-
+// getUsers = () => {
+//     if (this.props.users.length === 0) {
+{/*<button onClick={this.getUsers}>Get Users</button>*/}
 // function Users (props: UsersPropsType) {
 //     let getUsers = () => {
 //     if (props.users.length === 0) {
