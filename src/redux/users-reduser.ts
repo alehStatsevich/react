@@ -4,6 +4,8 @@
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS= 'SET_USERS';
+export const SET_CURRENT_PAGE ='SET_CURRENT_PAGE';
+export const SET_TOTAL_USERS_COUNT ='SET_TOTAL_USERS_COUNT';
 
  export type UserType = {
     id: number
@@ -13,17 +15,22 @@ export const SET_USERS= 'SET_USERS';
     fullName:string
     status:string
     location: any
+
 }
 
 export type initialStateType = {
     users: UserType[]
+    pageSize: any
+    totalUsersCount:number
+    currentPage: number
 }
 
 
 let initialState: initialStateType  = {
-   users: [
-
-   ]
+   users: [],
+    pageSize: 15,
+    totalUsersCount:0,
+    currentPage: 20
 }
 
  export const usersReducer = (state= initialState , action: any): initialStateType => {
@@ -56,9 +63,15 @@ let initialState: initialStateType  = {
             })
          }
       case SET_USERS: {
-          //делаем копию стейта,берем копию старых юзеров и добавляем к ним юзеров которые пришли из action.users( const setUsersAC = (users))
-          return {...state, users: [...state.users, ...action.users]}
+          //делаем копию стейта,берем копию старых юзеров и добавляем к ним юзеров которые пришли из action.users
+          return {...state, users: action.users}
       }
+        case SET_CURRENT_PAGE:{
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_TOTAL_USERS_COUNT:{
+            return {...state, totalUsersCount: action.count}
+        }
        default:
           return state;
     }
@@ -71,6 +84,12 @@ export const unfollowAC = (userId: number) => {
 }
 export const setUsersAC = (users: UserType[]) => {
    return {type: 'SET_USERS',users} as const
+}
+export const setCurrentPageAC = ( currentPage: number) =>{
+     return {type:  SET_CURRENT_PAGE,  currentPage: currentPage} as const
+}
+export const setTotalUsersCountAC = (totalUsersCount: number) =>{
+    return {type:  SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const
 }
 
  export default usersReducer;

@@ -1,6 +1,7 @@
 import {addPostActionCreator, profileReducer, updateNewTextActionCreator} from "./profile-reduser";
 import {dialogsReducer, sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reduser";
-import {followAC, setUsersAC, unfollowAC} from "./users-reduser";
+import {followAC, setCurrentPageAC, setUsersAC, unfollowAC} from "./users-reduser";
+import {ActionsType} from "./redux-store";
 
 //перенесли в profile-reduser,dialogs-reduser
 // const ADD_POST = "ADD-POST";
@@ -59,22 +60,23 @@ export type UsersType = {
 //     country: string
 // }
 
-export type ActionsType =
-    addPostType
-    |sendMessageType
-    |updateNewMessageBodyType
-    |updateNewText
-    |followType
-    |unfollowType
-    |setUsersType
-export type  addPostType = ReturnType<typeof addPostActionCreator>
-export type sendMessageType = ReturnType<typeof sendMessageCreator>
-export type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyCreator>
-export type updateNewText = ReturnType<typeof updateNewTextActionCreator>
-export type followType = ReturnType<typeof followAC>
-export type unfollowType = ReturnType<typeof unfollowAC>
-export type setUsersType = ReturnType<typeof setUsersAC>
-
+// export type ActionsType =
+//     addPostType
+//     |sendMessageType
+//     |updateNewMessageBodyType
+//     |updateNewText
+//     |followType
+//     |unfollowType
+//     |setUsersType
+// |setCurrentPageType
+// export type  addPostType = ReturnType<typeof addPostActionCreator>
+// export type sendMessageType = ReturnType<typeof sendMessageCreator>
+// export type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyCreator>
+// export type updateNewText = ReturnType<typeof updateNewTextActionCreator>
+// export type followType = ReturnType<typeof followAC>
+// export type unfollowType = ReturnType<typeof unfollowAC>
+// export type setUsersType = ReturnType<typeof setUsersAC>
+// export type setCurrentPageType = ReturnType<typeof setCurrentPageAC>
 
 
 let store: StoreType = {

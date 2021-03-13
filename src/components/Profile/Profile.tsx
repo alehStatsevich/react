@@ -1,15 +1,10 @@
 import React from "react";
 import Profileinfo from "./Profileinfo/Profileinfo"
-
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ActionsType, StoreType} from "../../redux/state";
-import store from "../../redux/redux-store";
 
 
- // type ProfilePropsType = {
- //    store:  StoreType
- //     dispatch: (action: ActionsType)=> void
- // }
+
+
 
 const Profile = () => {
     return <div>
@@ -32,5 +27,9 @@ export default Profile;
 // message={props.message}
 // <MyPostsContainer store={props.store}
 //                   dispatch={props.dispatch}/>
+// type ProfilePropsType = {
+//    store:  StoreType
+//     dispatch: (action: ActionsType)=> void
+// }
 
 
