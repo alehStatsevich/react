@@ -2,7 +2,7 @@ import React from "react";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reduser";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import store from "../../redux/redux-store";
+
 
 import {Dispatch} from "redux";
 import {StateType} from "../../redux/state";
