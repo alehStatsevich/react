@@ -1,6 +1,5 @@
 import {addPostActionCreator, profileReducer, updateNewTextActionCreator} from "./profile-reduser";
 import {dialogsReducer, sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reduser";
-import {followAC, setCurrentPageAC, setUsersAC, unfollowAC} from "./users-reduser";
 import {ActionsType} from "./redux-store";
 
 //перенесли в profile-reduser,dialogs-reduser
@@ -78,82 +77,82 @@ export type UsersType = {
 // export type setUsersType = ReturnType<typeof setUsersAC>
 // export type setCurrentPageType = ReturnType<typeof setCurrentPageAC>
 
-
-let store: StoreType = {
-    _state: {
-        profilePage: {
-            posts: [
-                {id: 1, message: 'Hi,how are you?', likesCount: 10},
-                {id: 2, message: 'its my first post', likesCount: 18},
-                {id: 3, message: 'i knows it', likesCount: 9}
-
-            ],
-            newPostText: ""
-        },
-        dialogsPage: {
-            messages: [
-                {id: 1, message: 'Hi'},
-                {id: 2, message: 'How is your'},
-                {id: 3, message: 'Yo'},
-                {id: 4, message: 'Yo'},
-                {id: 5, message: 'Yo'}
-            ],
-            dialogs: [
-                {id: 1, name: 'Dima'},
-                {id: 2, name: 'Andrey'},
-                {id: 3, name: 'Sveta'},
-                {id: 4, name: 'Sasha'},
-                {id: 5, name: 'Viktor'},
-                {id: 6, name: 'Valera'}
-            ],
-            newMessageBody: ""
-        },
-        usersPage: {
-            users: [
-                {
-                    id: 1,
-                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
-                    followed: false,
-                    fullName: "Dima",
-                    status: "Hello",
-                    location: {city: "Minsk", country: "Belarus"}
-                },
-                {
-                    id: 2,
-                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBR5SL43JjDN9N0r_q0FLWhi1WSTq1nDi_Q&usqp=CAU',
-                    followed: false,
-                    fullName: "Eska",
-                    status: "Hello",
-                    location: {city: "Brest", country: "Belarus"}
-                },
-                {
-                    id: 3,
-                    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3DxknKrLBlFGLEtUQmCbc0adqoOYc0VLYQ&usqp=CAU',
-                    followed: true,
-                    fullName: "Leonid",
-                    status: "Hello",
-                    location: {city: "Lida", country: "Belarus"}
-                }
-            ],
-        },
-    },
-    getState() {
-        return this._state;
-    },
-    subscribe(observer: () => void) {
-        this._callSubscriber = observer;
-    },
-    _callSubscriber() {
-        console.log('State changed')
-    },
-
-    dispatch(action) { //{type: 'ADD-POST'}
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._callSubscriber();
-    }
-}
-export default store;
+//
+// let store: StoreType = {
+//     _state: {
+//         profilePage: {
+//             posts: [
+//                 {id: 1, message: 'Hi,how are you?', likesCount: 10},
+//                 {id: 2, message: 'its my first post', likesCount: 18},
+//                 {id: 3, message: 'i knows it', likesCount: 9}
+//
+//             ],
+//             newPostText: ""
+//         },
+//         dialogsPage: {
+//             messages: [
+//                 {id: 1, message: 'Hi'},
+//                 {id: 2, message: 'How is your'},
+//                 {id: 3, message: 'Yo'},
+//                 {id: 4, message: 'Yo'},
+//                 {id: 5, message: 'Yo'}
+//             ],
+//             dialogs: [
+//                 {id: 1, name: 'Dima'},
+//                 {id: 2, name: 'Andrey'},
+//                 {id: 3, name: 'Sveta'},
+//                 {id: 4, name: 'Sasha'},
+//                 {id: 5, name: 'Viktor'},
+//                 {id: 6, name: 'Valera'}
+//             ],
+//             newMessageBody: ""
+//         },
+//         usersPage: {
+//             users: [
+//                 {
+//                     id: 1,
+//                     photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
+//                     followed: false,
+//                     fullName: "Dima",
+//                     status: "Hello",
+//                     location: {city: "Minsk", country: "Belarus"}
+//                 },
+//                 {
+//                     id: 2,
+//                     photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBR5SL43JjDN9N0r_q0FLWhi1WSTq1nDi_Q&usqp=CAU',
+//                     followed: false,
+//                     fullName: "Eska",
+//                     status: "Hello",
+//                     location: {city: "Brest", country: "Belarus"}
+//                 },
+//                 {
+//                     id: 3,
+//                     photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI3DxknKrLBlFGLEtUQmCbc0adqoOYc0VLYQ&usqp=CAU',
+//                     followed: true,
+//                     fullName: "Leonid",
+//                     status: "Hello",
+//                     location: {city: "Lida", country: "Belarus"}
+//                 }
+//             ],
+//         },
+//     },
+//     getState() {
+//         return this._state;
+//     },
+//     subscribe(observer: () => void) {
+//         this._callSubscriber = observer;
+//     },
+//     _callSubscriber() {
+//         console.log('State changed')
+//     },
+//
+//     dispatch(action) { //{type: 'ADD-POST'}
+//         this._state.profilePage = profileReducer(this._state.profilePage, action)
+//         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+//         this._callSubscriber();
+//     }
+// }
+// export default store;
 //перенесли в profile-reduser,dialogs-reduser переделываем в switch
 // if (action.type === 'ADD-POST') {
 //     let newPost: PostType = {

@@ -6,6 +6,7 @@ export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS= 'SET_USERS';
 export const SET_CURRENT_PAGE ='SET_CURRENT_PAGE';
 export const SET_TOTAL_USERS_COUNT ='SET_TOTAL_USERS_COUNT';
+export const TOGGLE_IS_FETCHING ='TOGGLE_IS_FETCHING';
 
  export type UserType = {
     id: number
@@ -23,14 +24,16 @@ export type initialStateType = {
     pageSize: any
     totalUsersCount:number
     currentPage: number
+    isFetching:boolean
 }
 
 
 let initialState: initialStateType  = {
    users: [],
-    pageSize: 15,
+    pageSize: 5,
     totalUsersCount:0,
-    currentPage: 20
+    currentPage: 1,
+    isFetching: false
 }
 
  export const usersReducer = (state= initialState , action: any): initialStateType => {
@@ -72,26 +75,31 @@ let initialState: initialStateType  = {
         case SET_TOTAL_USERS_COUNT:{
             return {...state, totalUsersCount: action.count}
         }
+        case TOGGLE_IS_FETCHING:{
+            return {...state,isFetching:action.isFetching}
+        }
        default:
           return state;
     }
  }
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
    return{type: 'FOLLOW',userId} as const
 }
-export const unfollowAC = (userId: number) => {
+export const unfollow = (userId: number) => {
    return {type: 'UNFOLLOW',userId} as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
    return {type: 'SET_USERS',users} as const
 }
-export const setCurrentPageAC = ( currentPage: number) =>{
+export const setCurrentPage = ( currentPage: number) =>{
      return {type:  SET_CURRENT_PAGE,  currentPage: currentPage} as const
 }
-export const setTotalUsersCountAC = (totalUsersCount: number) =>{
+export const setTotalUsersCount = (totalUsersCount: number) =>{
     return {type:  SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const
 }
-
+export const toggleIsFetching = (isFetching: boolean) =>{
+    return {type: TOGGLE_IS_FETCHING, isFetching} as const
+}
  export default usersReducer;
 // {id: 1,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujODEKwrdvmj6jufsQRsId0hv3Wr6vfppsA&usqp=CAU',
 //     followed:false, fullName: "Dima", status: "Hello",location:{city:"Minsk", country: "Belarus"}},

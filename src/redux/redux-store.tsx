@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import {addPostActionCreator, profileReducer, updateNewTextActionCreator} from "./profile-reduser";
 import {dialogsReducer, sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reduser";
-import usersReducer, {followAC, setCurrentPageAC, setUsersAC, unfollowAC} from "./users-reduser";
+import usersReducer, {follow, setCurrentPage, setUsers, unfollow} from "./users-reduser";
 
 export type ActionsType =
     addPostType
@@ -16,10 +16,10 @@ export type  addPostType = ReturnType<typeof addPostActionCreator>
 export type sendMessageType = ReturnType<typeof sendMessageCreator>
 export type updateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyCreator>
 export type updateNewText = ReturnType<typeof updateNewTextActionCreator>
-export type followType = ReturnType<typeof followAC>
-export type unfollowType = ReturnType<typeof unfollowAC>
-export type setUsersType = ReturnType<typeof setUsersAC>
-export type setCurrentPageType = ReturnType<typeof setCurrentPageAC>
+export type followType = ReturnType<typeof follow>
+export type unfollowType = ReturnType<typeof unfollow>
+export type setUsersType = ReturnType<typeof setUsers>
+export type setCurrentPageType = ReturnType<typeof setCurrentPage>
 
 
 let rootReducer = combineReducers({
